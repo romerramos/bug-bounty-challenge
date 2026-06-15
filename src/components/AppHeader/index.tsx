@@ -1,4 +1,13 @@
-import { Grow, Box, Theme, Toolbar, Typography } from "@mui/material";
+import {
+  Grow,
+  Box,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Theme,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled, useTheme } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
@@ -32,7 +41,7 @@ const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
 const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>(
   (props: AppHeaderProps, ref) => {
     const { user, pageTitle } = props;
-    const { t } = useTranslation("app");
+    const { t, i18n } = useTranslation("app");
     const theme = useTheme();
 
     const [count, setCount] = useState(3600);
@@ -55,6 +64,10 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>(
       const minutes = Math.floor(count / 60);
       const seconds = count % 60;
       return `${formatUnit(minutes)}:${formatUnit(seconds)}`;
+    };
+
+    const handleLanguageChange = (event: SelectChangeEvent) => {
+      i18n.changeLanguage(event.target.value);
     };
 
     return (
@@ -88,7 +101,32 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>(
                 {pageTitle.toLocaleUpperCase()}
               </Typography>
             </Box>
-            <Box sx={{ flex: 1, justifyContent: "flex-end", display: "flex" }}>
+            <Box
+              sx={{
+                flex: 1,
+                justifyContent: "flex-end",
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
+              <Select
+                size="small"
+                value={i18n.resolvedLanguage || i18n.language}
+                onChange={handleLanguageChange}
+                sx={{
+                  color: theme.palette.common.white,
+                  mr: 2,
+                  ".MuiOutlinedInput-notchedOutline": {
+                    borderColor: theme.palette.primary.main,
+                  },
+                  ".MuiSvgIcon-root": {
+                    color: theme.palette.common.white,
+                  },
+                }}
+              >
+                <MenuItem value="en">EN</MenuItem>
+                <MenuItem value="de">DE</MenuItem>
+              </Select>
               {user && user.eMail && (
                 <Grow in={Boolean(user && user.eMail)}>
                   <AvatarMenu user={user} />
