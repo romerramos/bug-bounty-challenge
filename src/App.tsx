@@ -3,7 +3,9 @@ import { SnackbarProvider } from "notistack";
 
 import { HashRouter } from "react-router-dom";
 
-import services from "./api/services";
+// Service registry is currently unused and has incomplete exports.
+// Keep it available for future challenges without blocking type checking.
+// import services from "./api/services";
 
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";

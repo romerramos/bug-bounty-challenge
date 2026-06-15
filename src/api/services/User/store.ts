@@ -31,9 +31,9 @@ export default class UserStore {
               lastName: "Test",
               eMail: "linda.bolt@osapiens.com",
             }),
-          500
-        )
-      )
+          500,
+        ),
+      ),
     )) as ResultOrErrorResponse<User>;
 
     if (!!error) {

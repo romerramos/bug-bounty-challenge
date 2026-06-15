@@ -1,4 +1,6 @@
-import User from "./User";
+// User has named exports only right now. Keep the service registry scaffold for
+// future challenges, but do not import it as a default export.
+// import User from "./User";
 
 const requireAllServices = (ctx: any): React.FC<any>[] => {
   const keys = ctx.keys();
@@ -11,7 +13,8 @@ const getAllServices = (): React.FC<any>[] => {
   // return requireAllServices(
   //   require.context("api/services/", true, /index\.tsx$/)
   // );
-  return [User];
+  // return [User];
+  return [];
 };
 
 export default getAllServices();
